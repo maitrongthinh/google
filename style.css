@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+body {
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.lockscreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 16px;
+  padding-top: env(safe-area-inset-top, 44px);
+  padding-bottom: env(safe-area-inset-bottom, 34px);
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.lock-icon {
+  margin-bottom: 20px;
+  transition: all 0.3s;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 400;
+  color: #000;
+  letter-spacing: -0.2px;
+  margin-bottom: 28px;
+  transition: all 0.3s;
+}
+
+.dots {
+  display: flex;
+  gap: 16px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background: transparent;
+  transition: background 0.1s ease;
+}
+
+.dot.filled {
+  background: #000;
+}
+
+.dot.wrong {
+  border-color: #ff3b30;
+  background: #ff3b30;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-10px); }
+  30%, 70% { transform: translateX(10px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Keypad */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-bottom: 20px;
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.key {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #d1d1d6;
+  border: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.key::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.key:active::after {
+  opacity: 1;
+}
+
+.key.empty {
+  background: transparent;
+  pointer-events: none;
+}
+
+.key .num {
+  font-size: 32px;
+  font-weight: 300;
+  color: #000;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.key .sub {
+  font-size: 9px;
+  font-weight: 500;
+  color: #000;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+  line-height: 1;
+}
+
+.key.delete {
+  background: transparent;
+}
+
+.key.delete::after {
+  display: none;
+}
+
+.key.delete:active {
+  opacity: 0.4;
+}
+
+/* Success state */
+.success .lock-icon svg path,
+.success .lock-icon svg rect {
+  stroke: #34c759;
+  fill: none;
+}
+
+.success .lock-icon svg rect {
+  stroke: #34c759;
+}
+
+.success .title {
+  color: #34c759;
+}

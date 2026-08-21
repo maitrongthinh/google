@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Trang chủ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+      padding-top: env(safe-area-inset-top, 44px);
+      padding-bottom: env(safe-area-inset-bottom, 34px);
+    }
+
+    .header {
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .menu-list {
+      flex: 1;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e5ea;
+      cursor: pointer;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item:active {
+      opacity: 0.5;
+    }
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .menu-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-icon.green {
+      background: #34c759;
+    }
+
+    .menu-icon.blue {
+      background: #007aff;
+    }
+
+    .menu-icon.orange {
+      background: #ff9500;
+    }
+
+    .menu-icon.red {
+      background: #ff3b30;
+    }
+
+    .menu-icon.purple {
+      background: #af52de;
+    }
+
+    .menu-text {
+      font-size: 17px;
+      color: #000;
+    }
+
+    .menu-arrow {
+      color: #c7c7cc;
+      font-size: 20px;
+    }
+
+    .create-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      background: #f2f2f7;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .create-btn:active {
+      background: #e5e5ea;
+      transform: scale(0.98);
+    }
+
+    .plus-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #007aff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .plus-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .create-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: #007aff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Cài đặt</h1>
+    </div>
+
+    <div class="menu-list">
+      <div class="menu-item">
+        <div class="menu-left">
+          <div class="menu-icon green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <span class="menu-text">Tài khoản</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-left">
+          <div class="menu-icon blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <span class="menu-text">Mật mã</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-left">
+          <div class="menu-icon orange">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          </div>
+          <span class="menu-text">Thông báo</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-left">
+          <div class="menu-icon purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          </div>
+          <span class="menu-text">Cài đặt</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </div>
+    </div>
+
+    <div class="create-btn" onclick="window.location.href='signup.html'">
+      <div class="plus-icon">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      </div>
+      <span class="create-text">Tạo tài khoản</span>
+    </div>
+  </div>
+</body>
+</html>
