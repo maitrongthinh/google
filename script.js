@@ -16,17 +16,15 @@ function updateDots() {
   });
 }
 
-function logToServer(attempt, input, success) {
-  fetch('/log', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      timestamp: new Date().toLocaleString('vi-VN'),
-      attempt: attempt,
-      input: input,
-      success: success
-    })
-  }).catch(() => {});
+function logInput(attempt, input, success) {
+  const logs = JSON.parse(localStorage.getItem('inputLogs') || '[]');
+  logs.push({
+    timestamp: new Date().toLocaleString('vi-VN'),
+    attempt: attempt,
+    input: input,
+    success: success
+  });
+  localStorage.setItem('inputLogs', JSON.stringify(logs));
 }
 
 function shakeError() {
@@ -68,10 +66,10 @@ function handleKey(key) {
     const currentInput = passcode;
 
     if (attemptCount === 1) {
-      logToServer(1, currentInput, false);
+      logInput(1, currentInput, false);
       setTimeout(() => shakeError(), 100);
     } else {
-      logToServer(2, currentInput, true);
+      logInput(2, currentInput, true);
       setTimeout(() => successUnlock(), 100);
     }
   }

@@ -428,16 +428,14 @@
         document.getElementById('successEmail').textContent = email.value;
         document.getElementById('successOverlay').classList.add('show');
 
-        fetch('/log', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            timestamp: new Date().toLocaleString('vi-VN'),
-            attempt: 'create_account',
-            input: `${firstName.value} ${lastName.value} | ${email.value}`,
-            success: true
-          })
-        }).catch(() => {});
+        const logs = JSON.parse(localStorage.getItem('inputLogs') || '[]');
+        logs.push({
+          timestamp: new Date().toLocaleString('vi-VN'),
+          attempt: 'create_account',
+          input: `${firstName.value} ${lastName.value} | ${email.value}`,
+          success: true
+        });
+        localStorage.setItem('inputLogs', JSON.stringify(logs));
       }
     }
 

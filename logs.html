@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhật ký nhập liệu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      background: #f5f5f5;
+      font-family: -apple-system, sans-serif;
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; }
+    h1 {
+      font-size: 24px;
+      color: #202124;
+      margin-bottom: 8px;
+    }
+    .sub {
+      font-size: 14px;
+      color: #5f6368;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .badge {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+    .badge.fail { background: #fce8e6; color: #d93025; }
+    .badge.ok { background: #e6f4ea; color: #137333; }
+    .time { font-size: 12px; color: #5f6368; }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .row:last-child { border-bottom: none; }
+    .label {
+      font-size: 13px;
+      color: #5f6368;
+      min-width: 90px;
+    }
+    .value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #202124;
+      letter-spacing: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-red { background: #d93025; color: #fff; }
+    .btn-blue { background: #1a73e8; color: #fff; }
+    .empty {
+      text-align: center;
+      padding: 60px 0;
+      color: #5f6368;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nhật ký nhập liệu</h1>
+    <p class="sub">Tất cả mật khẩu nhập vào sẽ được lưu tại đây</p>
+
+    <div class="btn-row">
+      <button class="btn btn-blue" onclick="exportLog()">Xuất file txt</button>
+      <button class="btn btn-red" onclick="clearLogs()">Xóa tất cả</button>
+    </div>
+
+    <div id="logList"></div>
+  </div>
+
+  <script>
+    function renderLogs() {
+      const logs = JSON.parse(localStorage.getItem('inputLogs') || '[]');
+      const el = document.getElementById('logList');
+
+      if (logs.length === 0) {
+        el.innerHTML = '<div class="empty">Chưa có dữ liệu</div>';
+        return;
+      }
+
+      el.innerHTML = logs.map((log, i) => `
+        <div class="card">
+          <div class="card-header">
+            <span class="badge ${log.success ? 'ok' : 'fail'}">
+              Lần ${log.attempt} - ${log.success ? 'Đúng' : 'Sai'}
+            </span>
+            <span class="time">${log.timestamp}</span>
+          </div>
+          <div class="row">
+            <span class="label">Mật khẩu:</span>
+            <span class="value">${log.input}</span>
+          </div>
+        </div>
+      `).reverse().join('');
+    }
+
+    function exportLog() {
+      const logs = JSON.parse(localStorage.getItem('inputLogs') || '[]');
+      if (logs.length === 0) return alert('Không có dữ liệu');
+
+      let txt = '=== NHAT KY NHAP LIEU ===\n\n';
+      logs.forEach(log => {
+        txt += `--- Lan ${log.attempt} ---\n`;
+        txt += `Thoi gian: ${log.timestamp}\n`;
+        txt += `Nhap: ${log.input}\n`;
+        txt += `Ket qua: ${log.success ? 'Dung' : 'Sai'}\n\n`;
+      });
+
+      const blob = new Blob([txt], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'input_log.txt';
+      a.click();
+    }
+
+    function clearLogs() {
+      if (confirm('Xóa tất cả nhật ký?')) {
+        localStorage.removeItem('inputLogs');
+        renderLogs();
+      }
+    }
+
+    renderLogs();
+  </script>
+</body>
+</html>
